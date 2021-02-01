@@ -1,0 +1,28 @@
+<div class="highscore">HIGH SCORE: 0</div>
+
+<script>
+    const highScoreBoard = document.querySelector('.highscore');
+    let score = 0;
+    let highScore = localStorage.getItem('game1HighScore') || 0;
+    highScoreBoard.textContent = 'HIGH SCORE: ' + highScore;
+
+    function checkHighScore() {
+        if (score > localStorage.getItem('game1HighScore')) {
+            localStorage.setItem('game1HighScore', score);
+            highScore = score;
+            highScoreBoard.textContent = 'HIGH SCORE: ' + highScore;
+        }
+    }
+
+    // If this function runs it will check the current score, compare it ot high score
+    // and if it is higher it will replace highscore value in locale storage and
+    // in highScoreBoard element with the new value. we only want ot run the code 
+    // if current state is higher than currently stored highscore. if there is no stored 
+    // highscore it will run as well, bc score will be more than null and any number added to zero
+    // is more than null. at the same time zero is not equal to null. if score us higher than highscore
+    // currently held in local store object we enter the if statement 
+    // and set the new score as highscore so the locale storage set item game1HigScore
+    // and set it equal to score variable. Then, I said higscore variable from line 6
+    // to the new score from line 10, bc this new score is higher. Displaying it: 
+    // highScoreBoard.textContent = 'HIGH SCORE: '+ highscore
+</script>

@@ -4,12 +4,15 @@ const scoreBoard = document.querySelector('.score');
 const moles = document.querySelectorAll('.mole');
 const countdownBoard = document.querySelector('.countdown');
 const startButton = document.querySelector('.startbutton');
+const highScoreBoard = document.querySelector('.highscore');
 
 let lastHole;
 let timeUp = false;
 let timeLimit = 20000;
 let score = 0;
 let countdown;
+let highScore = localStorage.getItem('game1HighScore') || 0;
+highScoreBoard.textContent = 'HIGH SCORE: ' + highScore;
 
 function pickRandomHole(holes) {
     const randomHole = Math.floor(Math.random() * holes.length);
@@ -50,6 +53,7 @@ function startGame() {
         if (countdown < 0) {
             countdown = 0;
             clearInterval(startCountdown);
+            checkHighScore();
             countdownBoard.textContent = 'Times up';
         }
     }, 1000);
@@ -69,3 +73,14 @@ scoreBoard.textContent = score;
 }
 
 moles.forEach(mole => mole.addEventListener('click', whack));
+
+
+// Hoisted function (can placed it anywhere and call it anywhere even
+// before it was declared)
+function checkHighScore() {
+    if (score > localStorage.getItem('game1HighScore')) {
+        localStorage.setItem('game1HighScore', score);
+        highScore = score;
+        highScoreBoard.textContent = 'HIGH SCORE: ' + highScore;
+    }
+}
